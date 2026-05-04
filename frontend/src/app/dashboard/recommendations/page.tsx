@@ -2,27 +2,89 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import Sidebar from '@/components/Sidebar';
-import { supabase } from '@/lib/supabase';
 import { ManagerAndAbove } from '@/components/RoleGuard';
 import { useUser } from '@/contexts/UserContext';
 
 const API_BASE = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3001';
 
-type RecommendationPriority = 'high' | 'medium' | 'low';
+type RecommendationPotential = 'high' | 'medium' | 'low';
 
 interface RecommendationCardData {
   id: string;
   clientId?: string;
   projectId?: string;
+  contactName?: string;
   type: string;
   score: number;
   summary: string;
   reasons: string[];
   suggestedAction?: string;
-  priority: RecommendationPriority;
+  potential: RecommendationPotential;
   rankingPosition: number;
   createdAt: string;
 }
+
+interface LeadRecommendationResponse {
+  clientId: string;
+  clientName?: string;
+  score: number | null;
+  recommendation: string | null;
+  details?: {
+    label?: 'LOW' | 'MEDIUM' | 'HIGH';
+    breakdown?: Record<string, number>;
+    inputs?: Record<string, unknown>;
+    scoringModel?: string;
+  } | null;
+  updatedAt: string | null;
+}
+
+const getPotentialFromScore = (score: number): RecommendationPotential => {
+  if (score >= 75) return 'high';
+  if (score >= 40) return 'medium';
+  return 'low';
+};
+
+const formatBreakdownLabel = (key: string) => {
+  return key
+    .replace(/([A-Z])/g, ' $1')
+    .replaceAll('_', ' ')
+    .replace(/^./, (char) => char.toUpperCase());
+};
+
+const mapLeadRecommendationToCard = (
+  item: LeadRecommendationResponse,
+  index: number,
+): RecommendationCardData => {
+  const score = item.score ?? 0;
+  const potential = getPotentialFromScore(score);
+  const breakdown = item.details?.breakdown ?? {};
+
+  const reasons = Object.entries(breakdown)
+    .filter(([, points]) => Number(points) > 0)
+    .map(([key, points]) => `${formatBreakdownLabel(key)}: +${points}`);
+
+  return {
+    id: item.clientId,
+    clientId: item.clientId,
+    contactName: item.clientName ?? 'Contact',
+    type: 'lead_score',
+    score,
+    summary: item.recommendation ?? 'Lead score available',
+    reasons:
+      reasons.length > 0
+        ? reasons
+        : ['No positive scoring signals available yet.'],
+    suggestedAction:
+      potential === 'high'
+        ? 'Prioritize follow-up with this contact.'
+        : potential === 'medium'
+        ? 'Continue nurturing this contact.'
+        : 'Monitor this contact for future activity.',
+    potential,
+    rankingPosition: index + 1,
+    createdAt: item.updatedAt ?? new Date().toISOString(),
+  };
+};
 
 export default function RecommendationsPage() {
   const { user } = useUser();
@@ -37,43 +99,40 @@ export default function RecommendationsPage() {
       setErrorMessage(null);
 
       try {
-        /* Supabase authentication when ready
-        const {
-          data: { session },
-        } = await supabase.auth.getSession();
+        const isLeadScoreFilter =
+          selectedType === 'all' || selectedType === 'lead_score';
 
-        const token = session?.access_token;
-
-        if (!token) {
-          setErrorMessage('You must be logged in to view recommendations.');
-          setLoading(false);
-          return;
-        }
-        */
-        const endpoint =
-          selectedType === 'all'
-            ? `${API_BASE}/recommendations`
-            : `${API_BASE}/recommendations?type=${encodeURIComponent(selectedType)}`;
+        const endpoint = isLeadScoreFilter
+          ? `${API_BASE}/leads/recommendations`
+          : `${API_BASE}/recommendations?type=${encodeURIComponent(selectedType)}`;
 
         const res = await fetch(endpoint, {
           method: 'GET',
           credentials: 'include',
-          /*headers: {
-            Authorization: `Bearer ${token}`,
-          },*/
         });
 
         if (!res.ok) {
           const errorData = await res.json().catch(() => null);
           setErrorMessage(
-            errorData?.message || 'Failed to load recommendations.'
+            errorData?.message || 'Failed to load recommendations.',
           );
           setLoading(false);
           return;
         }
 
         const data = await res.json();
-        setRecommendations(data.recommendations ?? []);
+
+        if (isLeadScoreFilter) {
+          const leadRecommendations = Array.isArray(data.recommendations)
+            ? data.recommendations
+            : [];
+
+          setRecommendations(
+            leadRecommendations.map(mapLeadRecommendationToCard),
+          );
+        } else {
+          setRecommendations(data.recommendations ?? []);
+        }
       } catch (error) {
         console.error('Error loading recommendations:', error);
         setErrorMessage('Could not reach the server.');
@@ -87,13 +146,13 @@ export default function RecommendationsPage() {
 
   const stats = useMemo(() => {
     const total = recommendations.length;
-    const high = recommendations.filter((r) => r.priority === 'high').length;
-    const medium = recommendations.filter((r) => r.priority === 'medium').length;
+    const high = recommendations.filter((r) => r.potential === 'high').length;
+    const medium = recommendations.filter((r) => r.potential === 'medium').length;
     const avgScore =
       total > 0
         ? Math.round(
-          recommendations.reduce((sum, item) => sum + item.score, 0) / total
-        )
+            recommendations.reduce((sum, item) => sum + item.score, 0) / total,
+          )
         : 0;
 
     return { total, high, medium, avgScore };
@@ -101,8 +160,8 @@ export default function RecommendationsPage() {
 
   const formatTypeLabel = (type: string) => {
     switch (type) {
-      case 'high_potential_lead':
-        return 'High Potential Lead';
+      case 'lead_score':
+        return 'Lead Score';
       case 'upsell_opportunity':
         return 'Upsell Opportunity';
       case 'reactivation_candidate':
@@ -112,13 +171,13 @@ export default function RecommendationsPage() {
     }
   };
 
-  const getPriorityColor = (priority: RecommendationPriority) => {
-    switch (priority) {
-      case 'high':
+  const getPotentialColor = (potential: RecommendationPotential) => {
+    switch (potential) {
+      case 'low':
         return { bg: '#FFE7E7', text: '#CC0000' };
       case 'medium':
         return { bg: '#FFF5E5', text: '#CC7A00' };
-      case 'low':
+      case 'high':
         return { bg: '#E7F7E7', text: '#008A00' };
     }
   };
@@ -256,8 +315,8 @@ export default function RecommendationsPage() {
             }}
           >
             <StatCard title="Total Recommendations" value={stats.total.toString()} />
-            <StatCard title="High Priority" value={stats.high.toString()} />
-            <StatCard title="Medium Priority" value={stats.medium.toString()} />
+            <StatCard title="High potential" value={stats.high.toString()} />
+            <StatCard title="Medium potential" value={stats.medium.toString()} />
             <StatCard title="Average Score" value={stats.avgScore.toString()} />
           </div>
 
@@ -309,7 +368,7 @@ export default function RecommendationsPage() {
                 }}
               >
                 <option value="all">All</option>
-                <option value="high_potential_lead">High Potential Leads</option>
+                <option value="lead_score">Lead Scores</option>
                 <option value="upsell_opportunity">Upsell Opportunities</option>
                 <option value="reactivation_candidate">Reactivation Candidates</option>
               </select>
@@ -362,7 +421,7 @@ export default function RecommendationsPage() {
             ) : (
               <div style={{ display: 'grid', gap: '16px' }}>
                 {recommendations.map((rec) => {
-                  const priorityColors = getPriorityColor(rec.priority);
+                  const potentialColors = getPotentialColor(rec.potential);
 
                   return (
                     <div
@@ -395,7 +454,7 @@ export default function RecommendationsPage() {
                               marginBottom: '6px',
                             }}
                           >
-                            #{rec.rankingPosition} • {formatTypeLabel(rec.type)}
+                            #{rec.rankingPosition} • {rec.contactName ?? formatTypeLabel(rec.type)}
                           </div>
 
                           <div
@@ -435,15 +494,15 @@ export default function RecommendationsPage() {
                             style={{
                               padding: '6px 12px',
                               borderRadius: 999,
-                              background: priorityColors.bg,
-                              color: priorityColors.text,
+                              background: potentialColors.bg,
+                              color: potentialColors.text,
                               fontWeight: 600,
                               fontFamily: 'Poppins',
                               fontSize: '13px',
                               textTransform: 'capitalize',
                             }}
                           >
-                            {rec.priority} priority
+                            {rec.potential} potential
                           </span>
                         </div>
                       </div>
@@ -464,13 +523,14 @@ export default function RecommendationsPage() {
                         <div style={{ marginBottom: '14px' }}>
                           <div
                             style={{
+                              color: 'rgba(0,0,0,0.75)',
                               fontFamily: 'Poppins',
                               fontWeight: '600',
                               fontSize: '14px',
                               marginBottom: '8px',
                             }}
                           >
-                            Why this is recommended
+                            Why this is recommended:
                           </div>
 
                           <ul
