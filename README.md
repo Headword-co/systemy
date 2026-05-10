@@ -102,20 +102,77 @@ track clients, interactions, deliverables, tagging, tasks, and internal workflow
 
 # Testing Documents
 <p>
-  <a href="docs/Sys-112-114-115-116 Testing.pdf">📄 Sys 112/114/115/116 Testing</a>
+  <a href="docs/Testing for Sprint2_Authentication and Verification_CSC190.pdf">
+    📄 Sprint 02 – Auth & Verification Testing
+  </a>
 </p>
 
 <p>
   <a href="docs/Testing For Sprint03- Search Bar and Filtered Search Results.pdf">
-    📄 Sprint 03 – Search Bar & Filter Tests
+    📄 Sprint 03 – Search Bar & Filter Testing
   </a>
 </p>
 
 <p>
-  <a href="docs/Testing for Sprint2_Authentication and Verification_CSC190.pdf">
-    📄 Sprint 2 – Auth & Verification Tests
+  <a href="docs/Sys-112-114-115-116 Testing.pdf">
+    📄 Sprint 05 –  Logging In Testing
   </a>
 </p>
+
+<p>
+  <a href="docs/Sprint05_sys-20-80-81-81_Testing.pdf">
+    📄 Sprint 05 - Client Profile Description Testing
+  </a>
+</p>
+
+<p>
+  <a href="docs/Sys-28 Send Notification Testing.pdf">
+    📄 Sprint 06 - Send Notifications Testing
+  </a>
+</p>
+
+<p>
+  <a href="docs/SYS-27_Schedule-Reminder_TESTING.pdf">
+    📄 Sprint 07 - Scheduling a Reminder Testing
+  </a>
+</p>
+
+<p>
+  <a href="docs/SYS-57_Restrict-to-Company-Domain.pdf">
+    📄 Sprint 07 - Restricting Access to Company Domain Testing
+  </a>
+</p>
+
+<p>
+  <a href="docs/_SYS-60_Find-User-Record_TESTING.pdf">
+    📄 Sprint 07 - Find a User Record Testing
+  </a>
+</p>
+
+<p>
+  <a href="docs/SYS-142-Contacts-Backend_TESTING.pdf">
+    📄 Sprint 07 - Backend for Contacts Testing
+  </a>
+</p>
+
+<p>
+  <a href="docs/SYS-27_Schedule-Reminder-Frontend_TESTING.pdf">
+    📄 Sprint 08 - Scheduling a Reminder Testing
+  </a>
+</p>
+
+<p>
+  <a href="docs/TESTING_SYS-168_Sync-Company-Emails.pdf">
+    📄 Sprint 09 - Enabling Email Notifications Testing
+  </a>
+</p>
+
+<p>
+  <a href="docs/System-Test-Report_BuzzWare.pdf">
+    📄 SYSTEM TEST REPORT - Whole System Testing 
+  </a>
+</p>
+
 
 # Product Screenshots
 <p align="center">
