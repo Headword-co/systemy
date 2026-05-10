@@ -12,7 +12,7 @@ Xavier Umeda -
 
 Tuan Ton - tonthattuanst@gmail.com
 
-Rachel Shindelus -
+Rachel Shindelus - rachelfshindelus@gmail.com
 
 Shing Trinh -
 
