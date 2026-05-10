@@ -91,6 +91,48 @@ Start the backend:
 - npm run start OR npm run start:dev
 - Runs at http://localhost:3001/
 
+# Testing
+
+## Backend Tests
+Navigate to the backend directory:
+- cd backend
+
+Run unit tests:
+```bash
+npm run test
+```
+
+Run unit tests in watch mode:
+```bash
+npm run test:watch
+```
+
+Run end-to-end tests:
+```bash
+npm run test:e2e
+```
+
+Run tests with coverage report:
+```bash
+npm run test:cov
+```
+
+## Frontend Tests
+Navigate to the frontend directory:
+- cd frontend
+
+Run unit/component tests:
+```bash
+npm run test
+```
+
+Run tests in watch mode:
+```bash
+npm run test:watch
+```
+
+> **Note:** Backend tests use Jest and require a valid `.env` file. E2E tests spin up a full NestJS application instance. Frontend tests use Jest with React Testing Library.
+
 # External Contact Form Integration
 The CRM accepts contact form submissions from external client websites via `POST /clients/contact`, authenticated with a shared secret (`X-Api-Secret` header).
 
