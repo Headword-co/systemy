@@ -10,7 +10,7 @@ Thomas Kone -
 
 Xavier Umeda -
 
-Tuan Ton -
+Tuan Ton - tonthattuanst@gmail.com
 
 Rachel Shindelus -
 
