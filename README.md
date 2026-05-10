@@ -4,7 +4,21 @@
 </p>
 
 # csc-190-191-systemy
-CSUS Senior Project by: Thomas Kone, Xavier Umeda, Tuan Ton, Rachel Shindelus, Shing Trinh, Isaac Sclafani, Serjeoh Nakata, Tyrice Woods 
+CSUS Senior Project by:
+
+Thomas Kone -
+
+Xavier Umeda -
+
+Tuan Ton -
+
+Rachel Shindelus -
+
+Shing Trinh -
+
+Isaac Sclafani -
+
+Serjeoh Nakata - serjeoh.nakata@gmail.com
 
 # Branching/Merging Strategy
 The `main` branch is the parent branch, the most current version of the application resides here.
@@ -103,35 +117,24 @@ track clients, interactions, deliverables, tagging, tasks, and internal workflow
   </a>
 </p>
 
-# Jira Timeline + Milestones
-## Sprint 5 (Feb 8th -> Feb 21st, 2025)
-### Creating the Client Profiles. 
-This sprint focuses on building the foundation of the client management system. Our team will implement the UI and backend structures needed to create, store, and display detailed client profiles. This includes key data fields, layout decisions, and the initial version of the client detail view.
-
-## Sprint 6 (Feb 22nd -> Mar 7th, 2026)
-### Integrating the Google Workspace.
-Our team will add Google Workspace integration to streamline importing client contacts, syncing calendars, and centralizing communication. This sprint ensures that agency users can efficiently connect their Google accounts and securely access authorized data. The integration will set the groundwork for automated email and meeting tracking.
-
-## Sprint 7 (Mar 8th -> Mar 21st, 2026)
-### Creating the Backend and Finalizing the Analytics and Reports Dashboard
-This sprint centers on strengthening backend APIs and implementing the analytics dashboard. Our team will build endpoints for aggregating client data and create visual insights for users, such as activity reports and performance metrics. The goal is to deliver a functional and intuitive analytics experience.
-
-## Sprint 8 (Mar 22nd -> Apr 5th, 2026)
-### Creating and Displaying AI Clients' Recommendations
-This sprint introduces AI-driven recommendations based on client behavior, tags, and historical data. The system will begin generating suggestions for follow-ups, project ideas, or communication strategies. 
-
-## Sprint 9 (Apr 6th -> Apr 18th, 2026)
-### Create AI-Based Scoring
-Our team will implement an algorithmic scoring system to evaluate client engagement, risk, and opportunity levels. This feature will use multiple weighted attributes to generate a clear, data-backed client score. The scoring model will help HeadWord! prioritize their workflows and guide strategic planning.
-
-# Login and Dashboard Pictures!
+# Product Screenshots
 <p align="center">
-  <img src="docs/AnalyticsDashPic.jpg" alt="Analytics Dashboard" width="500">
+  <img src="docs/LoginPicNew.png" alt="Login Page" width="300">
+  <br />
+  Google Sign-On for Headword! Members
+  <br />
 </p>
 
 <p align="center">
-  <img src="docs/LoginPic.jpg" alt="Login Page" width="300">
+  <img src="docs/DashPicNew.png" alt="Dashboard" width="500">
+  <br />
+  Dashboard overview for tracking contacts, projects, tasks, invoices, and more.
+  <br />
 </p>
 
-
-
+<p align="center">
+  <img src="docs/LeadScoring.png" alt="Lead Scoring Panel" width="500">
+  <br />
+  Lead scoring dashboard panel listing the current five highest scoring leads (contacts).
+  <br />
+</p>
