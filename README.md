@@ -227,15 +227,27 @@ track clients, interactions, deliverables, tagging, tasks, and internal workflow
 </p>
 
 <p align="center">
-  <img src="docs/DashPicNew.png" alt="Dashboard" width="700">
+  <img src="docs/DashPicNew.png" alt="Admin Dashboard Page" width="700" />
   <br />
-  <em>Dashboard overview for tracking contacts, projects, tasks, invoices, and more.</em>
+  <em>Admin/manager dashboard showing business-wide metrics, active contacts, tasks, invoices, project summaries, and Gantt timeline data for a full operational overview.</em>
+</p>
+
+<p align="center">
+  <img src="docs/DashboardUser.png" alt="User Dashboard Page" width="700" />
+  <br />
+  <em>User dashboard showing assigned tasks, recent activity, active projects, and project status information for standard Headword team members.</em>
 </p>
 
 <p align="center">
   <img src="docs/LeadScoring.png" alt="Lead Scoring Panel" width="700">
   <br />
   <em>Lead scoring dashboard panel that ranks contacts by potential using weighted CRM signals and displays their score, label, and last update date.</em>
+</p>
+
+<p align="center">
+  <img src="docs/Analytics.png" alt="Analytics Page" width="700" />
+  <br />
+  <em>Analytics page displaying revenue trends, client growth, invoice status, conversion rate, and date-range filters for tracking business performance.</em>
 </p>
 
 <p align="center">
@@ -272,6 +284,48 @@ track clients, interactions, deliverables, tagging, tasks, and internal workflow
   <img src="docs/Recommendations.png" alt="Recommendations Page" width="700" />
   <br />
   <em>Recommendations page that displays ranked business opportunities based on lead scoring results and suggested follow-up actions.</em>
+</p>
+
+<p align="center">
+  <img src="docs/UserManagement.png" alt="User Management Page" width="700" />
+  <br />
+  <em>User management page where administrators can view users and update account roles for access control.</em>
+</p>
+
+<p align="center">
+  <img src="docs/SystemSettings.png" alt="System Settings Page" width="700" />
+  <br />
+  <em>System settings page for viewing and managing administrative maintenance options such as backups and scheduled maintenance.</em>
+</p>
+
+<p align="center">
+  <img src="docs/Security.png" alt="Security Settings Page" width="700" />
+  <br />
+  <em>Security page outlining password policy requirements and administrative security settings such as two-factor authentication.</em>
+</p>
+
+<p align="center">
+  <img src="docs/ActivityLogs.png" alt="Activity Logs Page" width="700" />
+  <br />
+  <em>Activity logs page intended for future administrative monitoring and audit history; this feature is currently a work in progress.</em>
+</p>
+
+<p align="center">
+  <img src="docs/SettingsNotifications.png" alt="Notification Settings Page" width="700" />
+  <br />
+  <em>Notification settings page where users can manage follow-up reminders, email notifications, and dashboard notification preferences.</em>
+</p>
+
+<p align="center">
+  <img src="docs/SettingsGeneral.png" alt="General Settings Page" width="700" />
+  <br />
+  <em>General settings page where users can configure their timezone for reminders, scheduling, and date display.</em>
+</p>
+
+<p align="center">
+  <img src="docs/SettingsIntegrations.png" alt="Integrations Settings Page" width="700" />
+  <br />
+  <em>Integrations settings page showing connected services such as Google Workspace for calendar and contacts sync.</em>
 </p>
 
 <p align="center">
