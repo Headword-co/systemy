@@ -221,22 +221,61 @@ track clients, interactions, deliverables, tagging, tasks, and internal workflow
 
 # Product Screenshots
 <p align="center">
-  <img src="docs/LoginPicNew.png" alt="Login Page" width="300">
+  <img src="docs/LoginPicNew.png" alt="Login Page" width="500">
   <br />
-  Google Sign-On for Headword! Members
-  <br />
+  <em>Google Sign-On page for authorized Headword! members.</em>
 </p>
 
 <p align="center">
-  <img src="docs/DashPicNew.png" alt="Dashboard" width="500">
+  <img src="docs/DashPicNew.png" alt="Dashboard" width="700">
   <br />
-  Dashboard overview for tracking contacts, projects, tasks, invoices, and more.
-  <br />
+  <em>Dashboard overview for tracking contacts, projects, tasks, invoices, and more.</em>
 </p>
 
 <p align="center">
-  <img src="docs/LeadScoring.png" alt="Lead Scoring Panel" width="500">
+  <img src="docs/LeadScoring.png" alt="Lead Scoring Panel" width="700">
   <br />
-  Lead scoring dashboard panel listing the current five highest scoring leads (contacts).
+  <em>Lead scoring dashboard panel that ranks contacts by potential using weighted CRM signals and displays their score, label, and last update date.</em>
+</p>
+
+<p align="center">
+  <img src="docs/Projects.png" alt="Projects Page" width="700" />
   <br />
+  <em>Projects page for searching, filtering, creating, and tracking active client projects by owner, contact, due date, and status.</em>
+</p>
+
+<p align="center">
+  <img src="docs/Gantt.png" alt="Gantt Chart Page" width="700" />
+  <br />
+  <em>Gantt chart page for visualizing project schedules, timelines, and task assignments across clients and projects.</em>
+</p>
+
+<p align="center">
+  <img src="docs/Contacts.png" alt="Contacts Page" width="700" />
+  <br />
+  <em>Contacts page for managing client records, filtering contact data, and viewing each contact’s lead potential.</em>
+</p>
+
+<p align="center">
+  <img src="docs/Vendors.png" alt="Vendors Page" width="700" />
+  <br />
+  <em>Vendors page for viewing and managing vendor information, including company, status, project association, meeting date, and outcome.</em>
+</p>
+
+<p align="center">
+  <img src="docs/Invoices.png" alt="Invoices Page" width="700" />
+  <br />
+  <em>Invoices page for tracking invoice totals, payment status, due dates, associated clients, and project billing information.</em>
+</p>
+
+<p align="center">
+  <img src="docs/Recommendations.png" alt="Recommendations Page" width="700" />
+  <br />
+  <em>Recommendations page that displays ranked business opportunities based on lead scoring results and suggested follow-up actions.</em>
+</p>
+
+<p align="center">
+  <img src="docs/AccountSetting.png" alt="Account Settings Page" width="500" />
+  <br />
+  <em>Account settings page where users can view and edit profile details, role information, and security settings.</em>
 </p>
