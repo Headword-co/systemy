@@ -14,7 +14,7 @@ Tuan Ton - tonthattuanst@gmail.com
 
 Rachel Shindelus - rachelfshindelus@gmail.com
 
-Shing Trinh -
+Shing Trinh - shingtrinh9201@gmail.com
 
 Isaac Sclafani - isclafani@outlook.com
 
