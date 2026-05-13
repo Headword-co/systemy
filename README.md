@@ -16,7 +16,7 @@ Rachel Shindelus - rachelfshindelus@gmail.com
 
 Shing Trinh -
 
-Isaac Sclafani -
+Isaac Sclafani - isclafani@outlook.com
 
 Serjeoh Nakata - serjeoh.nakata@gmail.com
 
