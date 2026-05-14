@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { useUser } from '@/contexts/UserContext';
 import Avatar from '@/components/Avatar';
+import { motion } from 'framer-motion';
 
 interface SidebarProps {
     activePage: 'dashboard' | 'analytics' | 'projects' | 'gantt' | 'clients' | 'vendors' | 'invoices' | 'account' | 'settings' | 'management' | 'recommendations';
@@ -16,7 +17,10 @@ interface NavItemProps {
 
 const NavItem = ({ href, icon, label, isActive }: NavItemProps) => {
     const content = (
-        <div style={{
+        <motion.div
+            whileHover={{ x: 3 }}
+            transition={{ duration: 0.15, ease: 'easeOut' }}
+            style={{
             alignSelf: 'stretch',
             height: 61.10,
             padding: 10,
@@ -44,7 +48,7 @@ const NavItem = ({ href, icon, label, isActive }: NavItemProps) => {
             }}>
                 {label}
             </div>
-        </div>
+        </motion.div>
     );
 
     return href ? (

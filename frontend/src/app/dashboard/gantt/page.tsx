@@ -5,6 +5,7 @@ import { ResizableBox } from 'react-resizable';
 import Sidebar from '@/components/Sidebar';
 import { DevRoleSwitcher } from '@/components/DevRoleSwitcher';
 import { ManagerAndAbove } from '@/components/RoleGuard';
+import { SkeletonBlock } from '@/components/Skeleton';
 
 // ── Color palette ───────────────────────────────────────────────────────────
 const COLORS: Record<string, { bg: string; text: string }> = {
@@ -1041,11 +1042,13 @@ export default function GanttPage() {
                     {/* ── Gantt grid ─────────────────────────────────────────────── */}
                     {loading ? (
                         <div style={{
-                            flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            background: 'white', borderRadius: 12,
-                            boxShadow: '0px 2px 8px rgba(0,0,0,0.10)',
+                            flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'stretch',
+                            justifyContent: 'flex-start', background: 'white', borderRadius: 12,
+                            boxShadow: '0px 2px 8px rgba(0,0,0,0.10)', padding: '20px', gap: '12px',
                         }}>
-                            <span style={{ fontFamily: 'Poppins', fontSize: 14, color: '#999' }}>Loading Gantt data...</span>
+                            {[80, 60, 90, 50, 70].map((width, i) => (
+                                <SkeletonBlock key={i} width={`${width}%`} height={28} borderRadius={6} />
+                            ))}
                         </div>
                     ) : (
                         <div
