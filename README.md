@@ -8,7 +8,7 @@ CSUS Senior Project by:
 
 Thomas Kone - thomaskone@outlook.com
 
-Xavier Umeda - xumeda@csus.edu
+Xavier Umeda - 
 
 Tuan Ton - tonthattuanst@gmail.com
 
