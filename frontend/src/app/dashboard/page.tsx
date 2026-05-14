@@ -7,6 +7,7 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from 'recharts';
 import ReminderBanner from '@/components/dashboard/ReminderBanner';
 import { useUser } from '@/contexts/UserContext';
 import Avatar from '@/components/Avatar';
+import MotionCard from '@/components/MotionCard';
 
 // Copied from projects/page.tsx — maps raw DB project status values to display label + badge colors
 const PROJECT_STATUS_MAP: Record<string, { label: string; bg: string; text: string; shadow: string }> = {
@@ -436,46 +437,46 @@ export default function DashboardPage() {
           gap: '20px',
         }}>
           {/* Active Projects */}
-          <div style={tileStyle(0, kpiColors.activeProjects.border, kpiColors.activeProjects.shadow)} onMouseEnter={() => setHoveredTile(0)} onMouseLeave={() => setHoveredTile(null)}>
+          <MotionCard index={0} style={tileStyle(0, kpiColors.activeProjects.border, kpiColors.activeProjects.shadow)} onMouseEnter={() => setHoveredTile(0)} onMouseLeave={() => setHoveredTile(null)}>
             <div style={{ ...tileTopZone, background: '#FFAC80', borderBottom: '1px solid #f97316' }}><span style={{ ...tileLabelStyle, color: '#7c2d12' }}>Active Projects</span></div>
             <div style={tileBodyZone}>
               <div style={{ textAlign: 'center', color: 'black', fontSize: 48, fontFamily: 'Poppins', fontWeight: '700', lineHeight: 1 }}>{activeProjectsCount === null ? '...' : activeProjectsCount}</div>
             </div>
-          </div>
+          </MotionCard>
 
           {isAdminOrManager ? (
             <>
               {/* Active Contacts */}
-              <div style={tileStyle(1, kpiColors.activeContacts.border, kpiColors.activeContacts.shadow)} onMouseEnter={() => setHoveredTile(1)} onMouseLeave={() => setHoveredTile(null)}>
+              <MotionCard index={1} style={tileStyle(1, kpiColors.activeContacts.border, kpiColors.activeContacts.shadow)} onMouseEnter={() => setHoveredTile(1)} onMouseLeave={() => setHoveredTile(null)}>
                 <div style={{ ...tileTopZone, background: '#00F5A0', borderBottom: '1px solid #00C980' }}><span style={{ ...tileLabelStyle, color: '#065f46' }}>Active Contacts</span></div>
                 <div style={tileBodyZone}>
                   <div style={{ textAlign: 'center', color: 'black', fontSize: 48, fontFamily: 'Poppins', fontWeight: '700', lineHeight: 1 }}>{activeContactsCount === null ? '...' : activeContactsCount}</div>
                 </div>
-              </div>
+              </MotionCard>
 
               {/* Tasks Due This Week */}
-              <div style={tileStyle(2, kpiColors.tasksDue.border, kpiColors.tasksDue.shadow)} onMouseEnter={() => setHoveredTile(2)} onMouseLeave={() => setHoveredTile(null)}>
+              <MotionCard index={2} style={tileStyle(2, kpiColors.tasksDue.border, kpiColors.tasksDue.shadow)} onMouseEnter={() => setHoveredTile(2)} onMouseLeave={() => setHoveredTile(null)}>
                 <div style={{ ...tileTopZone, background: '#FF928A', borderBottom: '1px solid #ef4444' }}><span style={{ ...tileLabelStyle, color: '#7f1d1d' }}>Tasks Due This Week</span></div>
                 <div style={tileBodyZone}>
                   <div style={{ textAlign: 'center', color: 'black', fontSize: 48, fontFamily: 'Poppins', fontWeight: '700', lineHeight: 1 }}>{tasksDueCount === null ? '...' : tasksDueCount}</div>
                   {(tasksOverdueCount ?? 0) > 0 && <div style={badgeStyle('rgba(239, 68, 68, 0.15)', '#dc2626')}>{tasksOverdueCount} overdue</div>}
                 </div>
-              </div>
+              </MotionCard>
 
               {/* Open Invoices */}
-              <div style={tileStyle(3, kpiColors.openInvoices.border, kpiColors.openInvoices.shadow)} onMouseEnter={() => setHoveredTile(3)} onMouseLeave={() => setHoveredTile(null)}>
+              <MotionCard index={3} style={tileStyle(3, kpiColors.openInvoices.border, kpiColors.openInvoices.shadow)} onMouseEnter={() => setHoveredTile(3)} onMouseLeave={() => setHoveredTile(null)}>
                 <div style={{ ...tileTopZone, background: 'rgba(255, 246, 66, 0.6)', borderBottom: '1px solid rgba(220, 200, 0, 0.8)' }}><span style={{ ...tileLabelStyle, color: '#713f12' }}>Open Invoices</span></div>
                 <div style={tileBodyZone}>
                   <div style={{ textAlign: 'center', color: 'black', fontSize: 48, fontFamily: 'Poppins', fontWeight: '700', lineHeight: 1 }}>{openInvoicesCount === null ? '...' : openInvoicesCount}</div>
                   {(unpaidInvoicesCount ?? 0) > 0 && <div style={badgeStyle('rgba(245, 158, 11, 0.15)', '#d97706')}>{unpaidInvoicesCount} unpaid</div>}
                   {(overdueInvoicesCount ?? 0) > 0 && <div style={badgeStyle('rgba(239, 68, 68, 0.15)', '#dc2626')}>{overdueInvoicesCount} overdue</div>}
                 </div>
-              </div>
+              </MotionCard>
             </>
           ) : (
             <>
               {/* Recent Activity feed */}
-              <div style={tileStyle(1, kpiColors.comingSoon.border, kpiColors.comingSoon.shadow)} onMouseEnter={() => setHoveredTile(1)} onMouseLeave={() => setHoveredTile(null)}>
+              <MotionCard index={1} style={tileStyle(1, kpiColors.comingSoon.border, kpiColors.comingSoon.shadow)} onMouseEnter={() => setHoveredTile(1)} onMouseLeave={() => setHoveredTile(null)}>
                 <div style={{ ...tileTopZone, background: 'rgba(137, 121, 255, 0.4)', borderBottom: '1px solid #8979FF' }}><span style={{ ...tileLabelStyle, color: '#3730a3' }}>Recent Activity</span></div>
                 <div style={{ ...tileBodyZone, padding: '10px 16px', alignItems: 'stretch', justifyContent: 'center' }}>
                   {activityFeed === null ? (
@@ -501,16 +502,16 @@ export default function DashboardPage() {
                     </div>
                   )}
                 </div>
-              </div>
+              </MotionCard>
 
               {/* My Tasks Due */}
-              <div style={tileStyle(2, kpiColors.tasksDue.border, kpiColors.tasksDue.shadow)} onMouseEnter={() => setHoveredTile(2)} onMouseLeave={() => setHoveredTile(null)}>
+              <MotionCard index={2} style={tileStyle(2, kpiColors.tasksDue.border, kpiColors.tasksDue.shadow)} onMouseEnter={() => setHoveredTile(2)} onMouseLeave={() => setHoveredTile(null)}>
                 <div style={{ ...tileTopZone, background: '#FF928A', borderBottom: '1px solid #ef4444' }}><span style={{ ...tileLabelStyle, color: '#7f1d1d' }}>My Tasks Due</span></div>
                 <div style={tileBodyZone}>
                   <div style={{ textAlign: 'center', color: 'black', fontSize: 48, fontFamily: 'Poppins', fontWeight: '700', lineHeight: 1 }}>{myTasksTotal === null ? '...' : myTasksTotal}</div>
                   {(myTasksHigh ?? 0) > 0 && <div style={badgeStyle('#FF0000', 'white')}>{myTasksHigh} High</div>}
                 </div>
-              </div>
+              </MotionCard>
             </>
           )}
         </div>

@@ -3,6 +3,9 @@ import Sidebar from '@/components/Sidebar';
 import SearchBar from '@/components/SearchBar';
 import { useUser } from '@/contexts/UserContext';
 import { useState, useEffect, useCallback } from 'react';
+import { motion } from 'framer-motion';
+import MotionCard from '@/components/MotionCard';
+import { SkeletonCard } from '@/components/Skeleton';
 
 const API = process.env.NEXT_PUBLIC_BACKEND_URL;
 
@@ -252,13 +255,15 @@ export default function InvoicesPage() {
 
                 {/* Summary Cards */}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px', marginBottom: '30px' }}>
-                    {[
+                    {loading ? (
+                        [0, 1, 2, 3].map(i => <SkeletonCard key={i} />)
+                    ) : [
                         { amount: totalAmount, color: '#FF5900', label: 'Total Amount' },
                         { amount: paidAmount, color: '#4CAF50', label: 'Paid' },
                         { amount: unpaidAmount, color: '#FFC107', label: 'Unpaid' },
                         { amount: overdueAmount, color: '#F44336', label: 'Overdue' },
-                    ].map(card => (
-                        <div key={card.label} style={{
+                    ].map((card, i) => (
+                        <MotionCard key={card.label} index={i} style={{
                             background: 'white', padding: '20px', borderRadius: '15px',
                             boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', textAlign: 'center',
                         }}>
@@ -266,7 +271,7 @@ export default function InvoicesPage() {
                                 {formatCurrency(card.amount)}
                             </div>
                             <div style={{ fontSize: 14, color: '#666', fontFamily: 'Poppins' }}>{card.label}</div>
-                        </div>
+                        </MotionCard>
                     ))}
                 </div>
 
@@ -308,13 +313,30 @@ export default function InvoicesPage() {
                         <div>Created</div><div>Due Date</div><div>Project</div><div>Actions</div>
                     </div>
 
-                    <div>
+                    <motion.div
+                        initial="hidden"
+                        animate="visible"
+                        variants={{ visible: { transition: { staggerChildren: 0.04 } } }}
+                    >
                         {loading ? (
-                            <div style={{ padding: 40, textAlign: 'center', color: '#999', fontFamily: 'Poppins' }}>Loading...</div>
+                            [0, 1, 2, 3, 4].map(i => (
+                                <div key={i} style={{
+                                    display: 'grid', gridTemplateColumns: '120px 200px 120px 120px 120px 120px 1fr 140px',
+                                    gap: '20px', padding: '15px 20px', borderBottom: '1px solid #f0f0f0',
+                                    alignItems: 'center',
+                                }}>
+                                    {Array.from({ length: 8 }).map((_, j) => (
+                                        <div key={j} className="animate-pulse bg-gray-200" style={{ height: 16, borderRadius: 8 }} />
+                                    ))}
+                                </div>
+                            ))
                         ) : filteredInvoices.length === 0 ? (
                             <div style={{ padding: 40, textAlign: 'center', color: '#999', fontFamily: 'Poppins' }}>No invoices found</div>
                         ) : filteredInvoices.map(invoice => (
-                            <div key={invoice.invoice_id} style={{
+                            <motion.div
+                                key={invoice.invoice_id}
+                                variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.2 } } }}
+                                style={{
                                 display: 'grid', gridTemplateColumns: '120px 200px 120px 120px 120px 120px 1fr 140px',
                                 gap: '20px', padding: '15px 20px', borderBottom: '1px solid #f0f0f0',
                                 fontSize: 14, fontFamily: 'Poppins', alignItems: 'center',
@@ -340,9 +362,9 @@ export default function InvoicesPage() {
                                     )}
                                     <button onClick={() => handleDelete(invoice.invoice_id)} title="Delete" style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: '#F44336', fontSize: 16 }}>🗑️</button>
                                 </div>
-                            </div>
+                            </motion.div>
                         ))}
-                    </div>
+                    </motion.div>
                 </div>
             </div>
 

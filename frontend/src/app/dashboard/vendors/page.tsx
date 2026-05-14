@@ -3,6 +3,8 @@ import { useState, useEffect, useMemo, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Sidebar from '@/components/Sidebar';
 import SearchBar from '@/components/SearchBar';
+import { motion } from 'framer-motion';
+import { SkeletonRow } from '@/components/Skeleton';
 
 interface Vendor {
     id: string;
@@ -138,14 +140,7 @@ function VendorsPageInner() {
                     />
                 </div>
 
-                {/* Loading and Error Messages */}
-                {loading && (
-                    <div style={{ background: 'white', borderRadius: '15px', padding: '20px', boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', marginBottom: '20px' }}>
-                        <p style={{ color: '#FF5900', fontSize: 14, fontFamily: 'Poppins', margin: 0 }}>
-                            {isSearching ? 'Searching...' : 'Loading vendors...'}
-                        </p>
-                    </div>
-                )}
+                {/* Error Messages */}
                 {error && (
                     <div style={{ background: 'white', borderRadius: '15px', padding: '20px', boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', marginBottom: '20px' }}>
                         <p style={{ color: '#ef4444', fontSize: 14, fontFamily: 'Poppins', margin: 0, padding: 10, backgroundColor: '#fef2f2', borderRadius: 10 }}>
@@ -192,7 +187,7 @@ function VendorsPageInner() {
                     </div>
 
                     {/* Vendors Table */}
-                    {displayedVendors.length > 0 ? (
+                    {loading || displayedVendors.length > 0 ? (
                         <div style={{ overflowX: 'auto' }}>
                             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                                 <thead style={{ position: 'sticky', top: 0, background: 'rgba(255, 158, 77, 0.20)' }}>
@@ -204,14 +199,21 @@ function VendorsPageInner() {
                                         ))}
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    {displayedVendors.map((vendor, idx) => (
-                                        <tr
+                                <motion.tbody
+                                    initial="hidden"
+                                    animate="visible"
+                                    variants={{ visible: { transition: { staggerChildren: 0.04 } } }}
+                                >
+                                    {loading ? (
+                                        [0, 1, 2, 3, 4].map(i => <SkeletonRow key={i} cols={7} />)
+                                    ) : displayedVendors.map((vendor, idx) => (
+                                        <motion.tr
                                             key={vendor.id}
+                                            variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.2 } } }}
                                             onClick={() => router.push(`/dashboard/vendors/${vendor.id}`)}
                                             style={{ background: idx % 2 === 0 ? 'white' : 'rgba(255, 245, 230, 0.50)', transition: 'background 0.2s', cursor: 'pointer' }}
-                                            onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255, 158, 77, 0.15)'}
-                                            onMouseLeave={(e) => e.currentTarget.style.background = idx % 2 === 0 ? 'white' : 'rgba(255, 245, 230, 0.50)'}
+                                            onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.background = 'rgba(255, 158, 77, 0.15)'}
+                                            onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.background = idx % 2 === 0 ? 'white' : 'rgba(255, 245, 230, 0.50)'}
                                         >
                                             <td style={{ border: '1px solid rgba(217, 217, 217, 0.30)', padding: 15, fontFamily: 'Poppins', fontSize: 14, color: 'rgba(26, 26, 26, 0.80)', fontWeight: '500' }}>
                                                 {vendor.first_name} {vendor.last_name}
@@ -234,9 +236,9 @@ function VendorsPageInner() {
                                             <td style={{ border: '1px solid rgba(217, 217, 217, 0.30)', padding: 15, fontFamily: 'Poppins', fontSize: 14, color: 'rgba(26, 26, 26, 0.80)', maxWidth: 200, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                                                 {vendor.outcome}
                                             </td>
-                                        </tr>
+                                        </motion.tr>
                                     ))}
-                                </tbody>
+                                </motion.tbody>
                             </table>
                         </div>
                     ) : (

@@ -4,6 +4,8 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Sidebar from '@/components/Sidebar';
 import SearchBar from '@/components/SearchBar';
+import { motion } from 'framer-motion';
+import { SkeletonRow } from '@/components/Skeleton';
 
 
 interface Client {
@@ -311,25 +313,7 @@ function ClientsPageInner() {
 
                 </div>
 
-                {/* Loading and Error Messages */}
-                {loading && (
-                    <div style={{
-                        background: 'white',
-                        borderRadius: '15px',
-                        padding: '20px',
-                        boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
-                        marginBottom: '20px'
-                    }}>
-                        <p style={{
-                            color: '#FF5900',
-                            fontSize: 14,
-                            fontFamily: 'Poppins',
-                            margin: 0
-                        }}>
-                            {isSearching ? 'Searching...' : 'Loading contacts...'}
-                        </p>
-                    </div>
-                )}
+                {/* Error Messages */}
                 {error && (
                     <div style={{
                         background: 'white',
@@ -530,7 +514,7 @@ function ClientsPageInner() {
                     </div>
 
                     {/* Clients Table/List */}
-                    {displayedClients.length > 0 ? (
+                    {loading || displayedClients.length > 0 ? (
                         <div style={{
                             overflowX: 'auto'
                         }}>
@@ -556,18 +540,25 @@ function ClientsPageInner() {
                                         ))}
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    {displayedClients.map((client, idx) => (
-                                        <tr
+                                <motion.tbody
+                                    initial="hidden"
+                                    animate="visible"
+                                    variants={{ visible: { transition: { staggerChildren: 0.04 } } }}
+                                >
+                                    {loading ? (
+                                        [0, 1, 2, 3, 4].map(i => <SkeletonRow key={i} cols={12} />)
+                                    ) : displayedClients.map((client, idx) => (
+                                        <motion.tr
                                             key={client.id}
+                                            variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.2 } } }}
                                             onClick={() => router.push(`/dashboard/clients/${client.id}`)}
                                             style={{
                                                 background: idx % 2 === 0 ? 'white' : 'rgba(255, 245, 230, 0.50)',
                                                 transition: 'background 0.2s',
                                                 cursor: 'pointer'
                                             }}
-                                            onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255, 158, 77, 0.15)'}
-                                            onMouseLeave={(e) => e.currentTarget.style.background = idx % 2 === 0 ? 'white' : 'rgba(255, 245, 230, 0.50)'}
+                                            onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.background = 'rgba(255, 158, 77, 0.15)'}
+                                            onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.background = idx % 2 === 0 ? 'white' : 'rgba(255, 245, 230, 0.50)'}
                                         >
                                             <td style={{
                                                 border: '1px solid rgba(217, 217, 217, 0.30)',
@@ -736,9 +727,9 @@ function ClientsPageInner() {
                                                     <span style={{ color: 'rgba(26, 26, 26, 0.50)' }}>—</span>
                                                 )}
                                                 </td>
-                                        </tr>
+                                        </motion.tr>
                                     ))}
-                                </tbody>
+                                </motion.tbody>
                             </table>
                         </div>
                     ) : (
